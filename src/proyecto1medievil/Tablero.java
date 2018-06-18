@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Tablero {
     
-    int tamaño=0;
+    int tamcas=0;
     JPanel fondo=null;
     int[][] vecl;
     JLabel[][] vecg;
@@ -16,51 +16,120 @@ public class Tablero {
     private int tambloquey = 0;   
     public Personaje per;
     public Principal prueba;
-    static int a,b;
+    static int xx,yy;
+    int tip= 1;
     
     public Tablero(int tam,JPanel panel){
-        
-        this.tamaño=tam;
+   
+        this.tamcas=tam;
         this.fondo=panel;
         llenar();  
     }
     
     public void llenar(){
     
-        tambloquex = 700/tamaño;
-        tambloquey = 700/tamaño;
-        vecl = new int[tamaño][tamaño];
-        vecg = new JLabel[tamaño][tamaño];
-        int diez = (int)(tamaño*tamaño*.10);
-        int cinco = (int)(tamaño*tamaño*.05);
+        tambloquex = 600/tamcas;
+        tambloquey = 600/tamcas;
+        vecl = new int[tamcas][tamcas];
+        vecg = new JLabel[tamcas][tamcas];
+        int dper = (int)(tamcas*tamcas*.10);
+        int cper = (int)(tamcas*tamcas*.05);
         
         per = new Personaje();
         pos = new int[3][3];
         x = new int[3];
         y = new int [3];
         
-        int tipojug = 1;
-        int count1=0;
-        int count2=0;
+       
         
-        for(int i=0;i<tamaño;i++){
-            for(int j=0;j<tamaño;j++){
+        for(int i=0;i<tamcas;i++){
+            for(int j=0;j<tamcas;j++){
                 vecl[i][j]=0; 
             }
         }
         
-        for(int z=0;z<cinco;z++){
-            a=(int)(Math.random()*tamaño);
-            b=(int)(Math.random()*tamaño);
-            if(vecl[a][b]!=0){
-                --z;
+        for(int k=0;k<dper;k++){
+            xx=(int)(Math.random()*tamcas);
+           yy=(int)(Math.random()*tamcas);
+            if(vecl[xx][yy]!=0){
+                --k;
             }else{
-                vecl[a][b]=7;
+                vecl[xx][yy]=7;
             }
         }
         
-        for(int ui=0;ui<tamaño;ui++){
-            for(int uj=0;uj<tamaño;uj++){
+        for(int z=0;z<cper;z++){
+            xx=(int)(Math.random()*tamcas);
+           yy=(int)(Math.random()*tamcas);
+            if(vecl[xx][yy]!=0){
+                --z;
+            }else{
+                vecl[xx][yy]=8;
+            }
+        }
+        
+        for(int m=0;m<1;m++){
+            xx=(int)(Math.random()*tamcas);
+           yy=(int)(Math.random()*tamcas);
+            if(vecl[xx][yy]!=0){
+                --m;
+            }else{
+                vecl[xx][yy]=1;
+            }
+        }
+        
+        for(int c=0;c<1;c++){
+            xx=(int)(Math.random()*tamcas);
+           yy=(int)(Math.random()*tamcas);
+            if(vecl[xx][yy]!=0){
+                --c;
+            }else{
+                vecl[xx][yy]=2;
+            }
+        }
+        
+        for(int p=0;p<1;p++){
+            xx=(int)(Math.random()*tamcas);
+           yy=(int)(Math.random()*tamcas);
+            if(vecl[xx][yy]!=0){
+                --p;
+            }else{
+                vecl[xx][yy]=3;
+            }
+        }
+        
+        for(int M=0;M<1;M++){
+            xx=(int)(Math.random()*tamcas);
+           yy=(int)(Math.random()*tamcas);
+            if(vecl[xx][yy]!=0){
+                --M;
+            }else{
+                vecl[xx][yy]=4;
+            }
+        }
+        
+        for(int C=0;C<1;C++){
+            xx=(int)(Math.random()*tamcas);
+           yy=(int)(Math.random()*tamcas);
+            if(vecl[xx][yy]!=0){
+                --C;
+            }else{
+                vecl[xx][yy]=5;
+            }
+        }
+        
+        for(int P=0;P<1;P++){
+            xx=(int)(Math.random()*tamcas);
+           yy=(int)(Math.random()*tamcas);
+            if(vecl[xx][yy]!=0){
+                --P;
+            }else{
+                vecl[xx][yy]=6;
+            }
+        }
+        
+        for(int ui=0;ui<tamcas;ui++){
+            for(int uj=0;uj<tamcas;uj++){
                 if(vecl[ui][uj]==1){
                     pos[0][0]=vecl[ui][uj];
                     x[0]=ui;
@@ -84,10 +153,12 @@ public class Tablero {
     }
     
     public void repintar(){
+        tip++;
     
         JLabel casilla=null;
-        for(int i=0;i<tamaño;i++){
-            for(int j=0;j<tamaño;j++){
+        for(int i=0;i<tamcas;i++){
+            for(int j=0;j<tamcas;j++){
+                
                 if(vecl[i][j]==0){
                     casilla = new JLabel();
                 }else if(vecl[i][j]==1){
@@ -96,26 +167,35 @@ public class Tablero {
                     casilla = new JLabel(per.obtenerimagen(tambloquex,tambloquey));
                 }else if(vecl[i][j]==2){
                     per = new Personaje();
+                    per.obtenerimagen2( tambloquey);
+                    casilla = new JLabel(per.obtenerimagen2(tambloquey));
                     casilla = new JLabel(per.obtenerimagen2(tambloquey));
                 }else if(vecl[i][j]==3){
-                    ImageIcon per1= new ImageIcon(getClass().getResource("/Imagenes/mago.jpg"));
-                    casilla=new JLabel();
-                    casilla.setIcon(per1);
+                    //per = new Personaje();
+                    per.obtenerimagen3( tambloquey);
+                    casilla=new JLabel(per.obtenerimagen3( tambloquey));  
+                    
                 }else if(vecl[i][j]==4){
                     per = new Personaje();
-                    casilla = new JLabel(per.obtenerimagen6(tambloquey)); 
+                    per.obtenerimagen4(tambloquey);
+                    casilla = new JLabel(per.obtenerimagen4(tambloquey)); 
                 }else if(vecl[i][j]==5){
                     per = new Personaje();
-                    casilla = new JLabel(per.obtenerimagen7(tambloquey));                   
+                    per.obtenerimagen5( tambloquey);
+                    casilla = new JLabel(per.obtenerimagen5(tambloquey));                   
                 }else if(vecl[i][j]==6){
                     per = new Personaje();
-                    casilla = new JLabel(per.obtenerimagen8(tambloquey));
-                }else if(vecl[i][j]==8){
+                    per.obtenerimagen6( tambloquey);
+                    casilla = new JLabel(per.obtenerimagen6(tambloquey));
+                }else if(vecl[i][j]==7){
                     per = new Personaje();
-                    casilla = new JLabel(per.obtenerimagen3(tambloquey));
-                }else if (vecl[i][j] == 7){
-                    prueba = new Prueba();
-                    casilla = new JLabel(prueba.obtenerimagen(tambloquey));
+                    per.obtenerimagen7( tambloquey);
+                    casilla = new JLabel(per.obtenerimagen7(tambloquey));
+                }else if (vecl[i][j] == 8){
+                    per = new Personaje();
+                    per.obtenerimagen8(tambloquey);
+                    casilla = new JLabel(per.obtenerimagen8(tambloquey));
+                    
                 }
                 
                 casilla.setOpaque(false);
@@ -128,7 +208,5 @@ public class Tablero {
             }
         }
         fondo.repaint();
-    }
-    
-    
+    }  
 }
